@@ -1,31 +1,10 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Button, ActivityIndicator, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, ActivityIndicator, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import Icon2 from "react-native-vector-icons/FontAwesome5";
+import axios from "axios";
 
-const getRandomFloat = (min, max) => {
-  return (Math.random() * (max - min) + min).toFixed(2);
-};
-
-const generateRandomData = () => {
-  const simulatedData = [];
-  const currentDate = new Date();
-  let fanOnTime = 0;
-
-  for (let i = 0; i < 10; i++) {
-    const randomValue = getRandomFloat(20, 30);
-    const date = new Date(currentDate.getTime() + i * 30 * 60 * 1000);
-    simulatedData.push({
-      date: date.toISOString(),
-      value: parseFloat(randomValue),
-    });
-
-    if (i >= 2 && i < 8) {
-      fanOnTime += 0.5;
-    }
-  }
-
-  return { data: simulatedData, fanOnTime, fanStatus: fanOnTime > 0 };
-};
+const API_URL = "sua_url_da_api_aqui";
 
 const App = () => {
   const [fanData, setFanData] = useState({
@@ -35,11 +14,11 @@ const App = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  const fetchData = () => {
+  const fetchData = async () => {
     setLoading(true);
     try {
-      const result = generateRandomData();
-      setFanData(result);
+      const response = await axios.get(API_URL);
+      setFanData(response.data);
     } catch (error) {
       console.error("Erro ao buscar dados:", error);
     } finally {
@@ -47,11 +26,20 @@ const App = () => {
     }
   };
 
+  useEffect(() => {
+    fetchData();
+
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header}>API Fetcher</Text>
-      <Button title="Fetch Data" onPress={fetchData} />
-      <View style={styles.gap}></View>
 
       {loading ? (
         <ActivityIndicator size="large" color="#000" />
@@ -61,16 +49,16 @@ const App = () => {
             <View style={styles.timeContainer}>
               <Icon name="access-time" size={60} color="#000" style={styles.timeImg} />
               <Text style={styles.timeTitle}>Horas Ligadas</Text>
-              <Text style={styles.timeText}>{fanData.fanOnTime.toFixed(2)} Horas</Text>
+              <Text style={styles.timeText}>{fanData.fanOnTime ? fanData.fanOnTime.toFixed(2) : "0.00"} Horas</Text>
             </View>
           </View>
 
           <View style={styles.blockContainer}>
             <View style={styles.temperatureContainer}>
-              <Icon name="thermostat" size={60} color="#000" style={styles.temperatureImg} />
+              <Icon2 name="temperature-low" size={55} color="#000" style={styles.temperatureImg} />
               <Text style={styles.temperatureTitle}>Temperatura Atual</Text>
               <Text style={styles.temperatureText}>
-                {fanData.data.length > 0 ? fanData.data[0].value.toFixed(2) : "-"} °C
+                {fanData.data && fanData.data.length > 0 ? fanData.data[0].value.toFixed(2) : "-"} °C
               </Text>
             </View>
           </View>
@@ -188,4 +176,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-//linfo
