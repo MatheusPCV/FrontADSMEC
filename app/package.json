@@ -11,7 +11,10 @@
   "dependencies": {
     "@dotlottie/react-player": "^1.6.5",
     "@expo/webpack-config": "^19.0.0",
+<<<<<<< HEAD
     "@lottiefiles/react-lottie-player": "^3.5.3",
+=======
+>>>>>>> 0f527d60972ca0ac888d89fefab461e7aded0116
     "@react-native-async-storage/async-storage": "1.18.2",
     "axios": "^1.6.2",
     "chart.js": "^4.4.0",
