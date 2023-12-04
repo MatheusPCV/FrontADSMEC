@@ -56,7 +56,6 @@ const App = () => {
       {loading ? (
         <ActivityIndicator size="large" color="#000" />
       ) : (
-<<<<<<< HEAD
         <View style={styles.bigContainer}>
           <View style={styles.blockContainer}>
             <View style={styles.timeContainer}>
@@ -77,25 +76,6 @@ const App = () => {
           </View>
 
           <View style={styles.blockContainer}>
-=======
-        <View style={styles.chartContainer}>
-          <View style={styles.bigContainer}>
-            <View style={styles.timeContainer}>
-              <Icon
-                name="access-time"
-                size={60}
-                color="#000"
-                style={styles.timeImg}
-              />
-              <Text style={styles.timeTitle}>Horas Ligadas</Text>
-              <Text style={styles.timeText}>
-                {fanData.fanOnTime.toFixed(2)} Horas
-              </Text>
-            </View>
-
-            <View style={styles.gap}></View>
-
->>>>>>> 0f527d60972ca0ac888d89fefab461e7aded0116
             <View style={styles.statusContainer}>
               <Icon
                 style={styles.statusImg}
@@ -104,50 +84,9 @@ const App = () => {
                 color={fanData.fanStatus ? "#000" : "#000"}
               />
               <Text style={styles.statusTitle}>Status</Text>
-<<<<<<< HEAD
               <Text style={styles.statusText}>{fanData.fanStatus ? "Ligado" : "Desligado"}</Text>
             </View>
           </View>
-=======
-              <Text style={styles.statusText}>
-                {fanData.fanStatus ? "Ligado" : "Desligado"}
-              </Text>
-            </View>
-          </View>
-
-          <LineChart
-            data={{
-              labels: fanData.data.map((item) =>
-                new Date(item.date).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })
-              ),
-              datasets: [
-                {
-                  data: fanData.data.map((item) => item.value),
-                },
-              ],
-            }}
-            width={350}
-            height={200}
-            yAxisLabel="°C"
-            yAxisSuffix=""
-            chartConfig={{
-              backgroundGradientFrom: "#EAEAEA",
-              backgroundGradientTo: "#EAEAEA",
-              decimalPlaces: 2,
-              color: (opacity = 1) => `rgba(255, 223, 0, ${opacity})`, // Cor amarela
-              labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Cor preta
-              gridColor: "#FFFFFF",
-              style: {
-                borderRadius: 16,
-              },
-            }}
-            bezier
-            style={styles.chartStyle}
-          />
->>>>>>> 0f527d60972ca0ac888d89fefab461e7aded0116
         </View>
       )}
     </ScrollView>
@@ -206,10 +145,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     height: 200,
-<<<<<<< HEAD
-=======
-    width: 200,
->>>>>>> 0f527d60972ca0ac888d89fefab461e7aded0116
     backgroundColor: "black",
     borderRadius: 16,
     overflow: "hidden",
@@ -233,10 +168,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     height: 200,
-<<<<<<< HEAD
-=======
-    width: 200,
->>>>>>> 0f527d60972ca0ac888d89fefab461e7aded0116
     backgroundColor: "#FFD700",
     borderRadius: 16,
     overflow: "hidden",
