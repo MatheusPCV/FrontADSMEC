@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon2 from "react-native-vector-icons/FontAwesome5";
 import axios from "axios";
 
-const API_URL = "sua_url_da_api_aqui";
+const API_URL = "https://Squad5.pythonanywhere.com/temperature";
 
 const App = () => {
   const [fanData, setFanData] = useState({
